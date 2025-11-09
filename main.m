@@ -1,7 +1,12 @@
 clc; clear; clf; close all;
+% NOTE: Я воспринимаю это как УЧЕБУ и РАБОТУ
+
+% NOTE: На параметры накладываются следующие ограничения при симметричном методе:
+% n >= 5 && n % 2 == 1
+% intersect_points >= 3
 
 %% init
-n = 13; a = 0; b = 1 * pi; u_0 = 0; u_n = 0;
+n = 7; a = 0; b = 1 * pi; u_0 = 0; u_n = 0;
 intersect_points = 3; accuracy = 1e-2;
 x = linspace(a, b, n); f = sin(x)';
 
@@ -14,7 +19,7 @@ legend(sprintf("Прогонка на %i узлах", n))
 
 %% calculations
 subplot(1, 3, 2); hold on; grid on;
-[u_approx, E] = schwartz_2d(n, a, b, intersect_points, f, u_0, u_n, accuracy, true);
+[u_approx, E] = schwartz_2d_symmetrical(n, a, b, intersect_points, f, u_0, u_n, accuracy, true);
 
 subplot(1, 3, 3); hold on; grid on;
 plot(E')
