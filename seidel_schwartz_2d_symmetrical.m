@@ -1,4 +1,6 @@
-function [U, E] = test_schwartz_2d_symmetrical(n, a, b, intersect_points_radius, f, u_0, u_n, accuracy, trace, iters)
+% NOTE:
+% Скорее всего что-то не так с методом Зейделя
+function [U, E] = seidel_schwartz_2d_symmetrical(n, a, b, intersect_points_radius, f, u_0, u_n, accuracy, trace, iters)
 %SCWARTZ_2D_SYMMETRICAL реализация симметричного двумерного метода Шварца
 % n >= 5 && n % 2 == 1
 % intersect_points_radius >= 2
