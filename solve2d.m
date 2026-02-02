@@ -22,8 +22,8 @@ A = spdiags(diagonals, offsets, n_internal, n_internal);
 % Убрать ложные связи между столбцами
 b = hx^2*e;
 b(n_internal_y:n_internal_y:n_internal) = 0;
-A = spdiags(b, 1, A); % для +1 диагонали
-A = spdiags(b, -1, A);% для -1 диагонали
+A = spdiags(b, 1, A); 
+A = spdiags(b, -1, A);
 
 u_internal = A \ RHS(:);
 U_internal = reshape(u_internal, m - 2, n - 2)';

@@ -1,6 +1,5 @@
 % NOTE:
-% Скорее всего что-то не так с методом Зейделя
-function [U, E] = seidel_schwartz_2d_symmetrical(n, a, b, intersect_points_radius, f, u_0, u_n, accuracy, trace, iters)
+function [U, E] = seidel_schwartz_1d_symmetrical(n, a, b, intersect_points_radius, f, u_0, u_n, accuracy, trace, iters)
 %SCWARTZ_2D_SYMMETRICAL реализация симметричного двумерного метода Шварца
 % n >= 5 && n % 2 == 1
 % intersect_points_radius >= 2
@@ -35,7 +34,7 @@ while abs(error) > accuracy && size(E, 1) < 1000
   
   left_u = seidel(A_c, left_f, left_u, accuracy, iters); right_u = seidel(A_c, right_f, right_u, accuracy, iters);
   pleft_un = left_un; pright_u0 = right_u0;
-  left_un = right_u(left_piv); right_u0 = left_u(end + right_piv); % Корректировка
+  left_un = right_u(left_piv); right_u0 = left_u(end + right_piv); 
   
   left_err = right_u(1) - left_un; right_err = left_u(end) - right_u0;
   error = max(abs(left_err) + abs(right_err)) / norm_mod;
