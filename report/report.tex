@@ -1,0 +1,107 @@
+\documentclass[14pt, a4paper]{extarticle}
+
+% Поддержка русского языка
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+% Настройки полей по ГОСТ (левое 3 см, правое 1.5 см, верх и низ 2 см)
+\usepackage[left=3cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
+
+% Полуторный межстрочный интервал
+\usepackage{setspace}
+\onehalfspacing
+
+% Абзацный отступ (1.25 см)
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+
+% Пакет для списков
+\usepackage{enumitem}
+
+% Настройка заголовков (выравнивание по левому краю)
+\usepackage{titlesec}
+\titleformat{\section}[block]{\bfseries}{\thesection.}{0.5em}{\MakeUppercase}
+\titleformat{\subsection}[block]{\bfseries}{\thesubsection.}{0.5em}{}
+% Отступы для заголовков: слева 0pt (по левому краю), перед и после заголовка - 12pt
+\titlespacing{\section}{0pt}{12pt}{12pt}
+\titlespacing{\subsection}{0pt}{12pt}{12pt}
+
+% Настройка оглавления
+\usepackage{tocloft}
+\renewcommand{\contentsname}{\hfill\bfseries Оглавление\hfill}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точечки для разделов
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\bfseries}
+\renewcommand{\cftsubsecpagefont}{\bfseries}
+
+\usepackage[autostyle]{csquotes} 
+\usepackage[
+    backend=biber,
+    bibstyle=gost-numeric, % Оформление списка по ГОСТу
+    citestyle=numeric-comp,% Оформление ссылок в тексте: [1, 2]
+    language=auto,
+    sorting=none           % Выводить в порядке упоминания (или \nocite)
+]{biblatex}
+\addbibresource{references.bib}
+
+\sloppy
+
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+		Министерство науки и высшего образования Российской Федерации\\[1ex]
+		Федеральное государственное автономное образовательное учреждение\\
+		высшего образования\\[1ex]
+		«Казанский (Приволжский) федеральный университет»\\[1ex]
+		\textit{Институт вычислительной математики и информационных технологий}\\[1ex]
+		Кафедра прикладной математики и искусственного интеллекта
+	\end{center}
+
+	\vspace{1cm}
+
+	\begin{center}
+		\textbf{Сравнение методов декомпозиции области при решении уравнения энергии}
+	\end{center}
+
+	\vspace{1cm}
+
+	\begin{center}
+		КУРСОВАЯ РАБОТА\\
+		Направление: 01.03.04 -- Прикладная Математика
+	\end{center}
+
+	\vspace{2cm}
+
+	\noindent
+	\begin{minipage}[t]{0.45\textwidth}
+		Курсовая работа\\
+		допущена к защите\\
+		«\underline{\hspace{0.7cm}}»\underline{\hspace{2.5cm}}20\underline{\hspace{0.5cm}}г.\\[3cm]
+		Зав. Кафедрой\\[0.5ex]
+		\underline{\hspace{2.5cm}} Д.\,Н. Тумаков
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t]{0.5\textwidth}
+		\textbf{Исполнитель:}\\
+		Лещенко Илья Федорович,\\
+		студент гр.\,09-321\\[1ex]
+		\makebox[4cm]{\hrulefill}\\
+		\makebox[4cm][c]{\scriptsize (подпись)}\\[0.5cm]
+		\textbf{Научный руководитель:}\\
+		Федотов Павел Евгеньевич,\\
+		Старший преподаватель, б/с,\\
+		Кафедры прикладной математики и\\
+		Искусственного интеллекта\\[1ex]
+		\makebox[4cm]{\hrulefill}\\
+		\makebox[4cm][c]{\scriptsize (подпись)}
+	\end{minipage}
+
+	\vfill
+
+	\begin{center}
+		Казань 2026
+	\end{center}
+\end{titlepage}
+\end{document}
