@@ -1,12 +1,12 @@
 function schwartzapp
-fig = uifigure('Name', 'Метод Шварца: Исследование', 'Position', [100 100 1200 600]);
+fig = uifigure('Name', 'Метод Шварца: Исследование', 'Position', [100 100 1200 600]); 
 
 gl = uigridlayout(fig, [1, 2]);
 gl.ColumnWidth = {300, '1x'};
 
 panel = uipanel(gl, 'Title', 'Параметры задачи');
 
-pLayout = uigridlayout(panel, [11, 1]);
+pLayout = uigridlayout(panel, [13, 1]);
 pLayout.RowHeight = {22, 25, 22, 25, 22, 25, 22, 30, 22, 25, 50};
 pLayout.RowSpacing = 5;
 
@@ -18,6 +18,12 @@ accField = uieditfield(pLayout, 'numeric', 'Value', 1e-3, 'ValueDisplayFormat', 
 
 uilabel(pLayout, 'Text', 'Радиус пересечения r(n)');
 radField = uieditfield(pLayout, 'text', 'Value', 'floor(n / 4)');
+
+uilabel(pLayout, 'Text', 'Количество интервалов');
+breakpointsField = uieditfield(pLayout, 'numeric', ...
+  'Value', 2, ...             
+  'Limits', [1, 30], ...      
+  'RoundFractionalValues', 'on');
 
 uilabel(pLayout, 'Text', 'Интервал [a, b]:');
 
@@ -78,6 +84,7 @@ function onRun()
     end
 
     x = warped_linspace(a, b, n, distSlider.Value);
+    bpoints = breakpointsField.Value;
     h = diff(x);
 
     try
@@ -104,7 +111,7 @@ function onRun()
     u_exact = [u_0 u_exact_inner' u_n];
 
     fStart = tic;
-    [U, e, ie] = schwartz_1d_symmetrical(x, rad, f_vec, u_0, u_n, acc, true, ax2);
+    [U, e] = schwartz_1d_symmetrical(x, bpoints, rad, f_vec, u_0, u_n, acc, true, ax2);
     time_elapsed = toc(fStart);
 
     hold(ax1, 'on');
@@ -120,8 +127,6 @@ function onRun()
 
     hold(ax3, 'on');
     plot(ax3, e, 'g-', 'DisplayName', 'Estimated Error');
-    plot(ax3, ie, 'b-', 'DisplayName', 'Estimated Intergated Error');
-    % plot(ax3, real_relative_err, '-', 'LineWidth', 1.5, 'DisplayName', 'Real Relative Error');
     plot(ax3, real_err, 'm--', 'LineWidth', 1.5, 'DisplayName', 'Real Error');
     plot(ax3, idx_min_real, val_min_real, 'ro', 'DisplayName', 'Min Real Err');
 
@@ -131,7 +136,6 @@ function onRun()
     title(ax3, sprintf('Min Real Err: %.2e (iter %d)', val_min_real, idx_min_real));
 
     fprintf('Расчет завершен за %.4f сек. Итераций: %d\n', time_elapsed, numel(e));
-    fprintf('Разница между интегральной и модульной ошибкой: %d\n', max(abs(e - ie)));
     toc(tStart)
 end 
 end
