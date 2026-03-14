@@ -6,7 +6,7 @@ gl.ColumnWidth = {300, '1x'};
 
 panel = uipanel(gl, 'Title', 'Параметры задачи');
 
-pLayout = uigridlayout(panel, [13, 1]);
+pLayout = uigridlayout(panel, [16, 1]);
 pLayout.RowHeight = {22, 25, 22, 25, 22, 25, 22, 30, 22, 25, 50};
 pLayout.RowSpacing = 5;
 
@@ -27,6 +27,9 @@ breakpointsField = uieditfield(pLayout, 'numeric', ...
 
 uilabel(pLayout, 'Text', 'Интервал [a, b]:');
 
+uilabel(pLayout, 'Text', 'Мультипликативный/Аддитивный метод');
+method = uicheckbox(pLayout, 'Text', 'Использовать мультипликативный метод');
+
 abGrid = uigridlayout(pLayout, [1, 2]);
 abGrid.Padding = [0 0 0 0];
 abGrid.ColumnSpacing = 10;
@@ -42,6 +45,8 @@ funcField = uieditfield(pLayout, 'text', 'Value', 'sin(x)');
 
 uilabel(pLayout, 'Text', 'Распределение узлов x:');
 distSlider = uislider(pLayout, 'Limits', [-2 2]);
+
+timeLabel = uilabel(pLayout, 'Text', 'Время выполнения: --');
 
 btn = uibutton(pLayout, 'Text', 'РАССЧИТАТЬ', ...
     'ButtonPushedFcn', @(btn, event) onRun());
@@ -91,7 +96,7 @@ function onRun()
         function_fcn = str2func(['@(x) ' funcField.Value]);
         f_vec = function_fcn(x)';
     catch
-        uialert(fig, 'Твоя f(x) полное говно', 'Неправильная функция');
+        uialert(fig, 'f(x) задана неверно', 'Неправильная функция');
         return;
     end
 
@@ -111,8 +116,9 @@ function onRun()
     u_exact = [u_0 u_exact_inner' u_n];
 
     fStart = tic;
-    [U, e] = schwartz_1d_symmetrical(x, bpoints, rad, f_vec, u_0, u_n, acc, true, ax2);
+    [U, e] = schwartz_1d_symmetrical(x, bpoints, rad, f_vec, u_0, u_n, acc, method.Value, true, ax2);
     time_elapsed = toc(fStart);
+    timeLabel.Text = sprintf('Время выполнения: %.4f сек.', time_elapsed);
 
     hold(ax1, 'on');
     plot(ax1, x, u_exact, 'b-', 'LineWidth', 1.5, 'DisplayName', 'Точное');

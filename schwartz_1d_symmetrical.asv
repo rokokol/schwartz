@@ -65,23 +65,21 @@ function [U, e] = schwartz_1d_symmetrical(x, bpoints, intersect_points_radius, f
       1.00, 0.40, 0.00  
   ];
   colors = repmat(base_colors, ceil(bpoints / size(base_colors, 1)), 1);
-  if is_mult
-      method = @schwartz_mult_step;
-  else
-      method = @schwartz_add_step;
-  end
   
   if trace
       hold(target_ax, 'on'); 
   end
 
-  flag = true;
-  while flag
+  while error > accuracy && iter < 100
       iter = iter + 1;
       
       % Аддитивный или мультипликативный проход по подобластям
-      [u_next, max_diff] = method(u_curr, A, f_int, starts, ends_arr, glob_lower, glob_upper, bpoints);
-      
+      if is_mult == 1
+        [u_next, max_diff] = schwartz_mult_step(u_curr, A, f_int, starts, ends_arr, glob_lower, glob_upper, bpoints);
+      else
+        [u_next, max_diff] = schwartz_mult_step(u_curr, A, f_int, starts, ends_arr, glob_lower, glob_upper, bpoints);
+      end
+
       error = max_diff;
       e = [e; error];
       U = [U; u_next']; 
@@ -96,8 +94,6 @@ function [U, e] = schwartz_1d_symmetrical(x, bpoints, intersect_points_radius, f
               plot(target_ax, x(idx_plot), u_curr(idx_plot), 'Color', c, 'LineWidth', 1.5);
           end
       end
-
-      flag = error > accuracy && iter < 100;
   end
 end
 
