@@ -1,4 +1,8 @@
 function schwartzapp
+addpath('../utils');
+addpath('../solvers');
+addpath('../scripts');
+    
 fig = uifigure('Name', 'Метод Шварца: Исследование', 'Position', [100 100 1200 600]); 
 
 gl = uigridlayout(fig, [1, 2]);
