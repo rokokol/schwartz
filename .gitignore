@@ -1,3 +1,38 @@
-report/*
-!report/report.tex
-!report/references.bib
+# LaTeX build artifacts
+report/*.aux
+report/*.log
+report/*.bbl
+report/*.blg
+report/*.out
+report/*.toc
+report/*.lof
+report/*.lot
+report/*.bcf
+report/*.run.xml
+report/*.synctex.gz
+report/*.fdb_latexmk
+report/*.fls
+report/*.nav
+report/*.snm
+report/*.vrb
+
+# Прочие временные исходники
+report/theory.md
+report/Шварц.pptx
+
+# MATLAB
+*.asv
+*.m~
+slprj/
+codegen/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python (utility scripts produce no artefacts, но на всякий случай)
+__pycache__/
+*.pyc
