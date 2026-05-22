@@ -15,6 +15,7 @@ report/*.fls
 report/*.nav
 report/*.snm
 report/*.vrb
+report/*-SAVE-ERROR
 
 # Прочие временные исходники
 report/theory.md
